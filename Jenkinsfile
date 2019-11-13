@@ -16,12 +16,12 @@ pipeline {
                 ''' 
             }
         }
-        stage ('Build') {
+        stage ('Maven Build') {
         	steps {
         		sh 'mvn package'
         	}
         }
-        stage ('Build Image') {
+        stage ('Build Docker Image') {
         	steps {
         		script {
         			app = docker.build("forkbomb666/fin")
