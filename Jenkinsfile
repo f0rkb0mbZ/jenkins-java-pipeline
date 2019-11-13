@@ -23,7 +23,9 @@ pipeline {
         }
         stage ('Build Image') {
         	steps {
-        		app = docker.build("forkbomb666/fin")
+        		steps {
+        			app = docker.build("forkbomb666/fin")
+        		}
         	}
         }
 	}
