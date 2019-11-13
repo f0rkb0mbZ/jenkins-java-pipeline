@@ -1,6 +1,8 @@
 pipeline {
+	environment {
+		app = ''
+	}
 	agent any
-	def app
 	tools {
 		maven 'maven-3.6.2'
 		jdk 'openjdk-8-jdk'
