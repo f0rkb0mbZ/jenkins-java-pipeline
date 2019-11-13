@@ -18,5 +18,10 @@ pipeline {
         		sh 'mvn package'
         	}
         }
+        stage ('List files') {
+        	steps {
+        		sh 'ls -la'
+        	}
+        }
 	}
 }
