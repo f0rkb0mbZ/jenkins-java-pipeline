@@ -23,7 +23,7 @@ pipeline {
         }
         stage ('Build Image') {
         	steps {
-        		steps {
+        		script {
         			app = docker.build("forkbomb666/fin")
         		}
         	}
