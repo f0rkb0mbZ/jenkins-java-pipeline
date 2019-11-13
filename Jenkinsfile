@@ -1,4 +1,6 @@
 pipeline {
+	agent any
+	def app
 	tools {
 		maven 'maven-3.6.2'
 		jdk 'openjdk-8-jdk'
@@ -17,9 +19,9 @@ pipeline {
         		sh 'mvn package'
         	}
         }
-        stage ('List files') {
+        stage ('Build Image') {
         	steps {
-        		sh 'ls -la'
+        		app = docker.build("forkbomb666/fin")
         	}
         }
 	}
