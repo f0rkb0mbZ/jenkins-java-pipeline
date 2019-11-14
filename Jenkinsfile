@@ -52,9 +52,9 @@ pipeline {
         }
         stage ('Deploy application to kubernetes') {
             steps {
-                withKubeConfig(clusterName: 'kubernetes', contextName: 'kubernetes-admin', serverUrl: 'https://10.0.0.6:6443', credentialsId: 'kubeSecret') {
+                withKubeConfig(serverUrl: 'https://10.0.0.6:6443', credentialsId: 'kubeSecret') {
                     script {
-                        sh "kubectl get nodes"
+                        sh "kubectl config view"
                     }
                 }
             }
