@@ -45,6 +45,7 @@ pipeline {
         			sh '''
         				docker rmi registry.hub.docker.com/$image_name:$BUILD_NUMBER
                         docker rmi registry.hub.docker.com/$image_name:latest
+                        docker image prune
         			'''
         		}
         	}
