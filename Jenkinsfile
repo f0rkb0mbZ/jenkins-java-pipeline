@@ -24,7 +24,17 @@ pipeline {
         stage ('Build Docker Image') {
         	steps {
         		script {
-        			app = docker.build("forkbomb666/fin")
+        			app = docker.build("drake666/fin")
+        		}
+        	}
+        }
+        stage ('Push Docker Image') {
+        	steps {
+        		script {
+        			docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
+        				app.push("$BUILD_NUMBER")
+        				app.push("latest")
+        			}
         		}
         	}
         }
