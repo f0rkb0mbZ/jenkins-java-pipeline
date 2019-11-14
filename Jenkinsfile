@@ -1,6 +1,7 @@
 pipeline {
 	environment {
 		app = ''
+		image_name = 'drake666/fin'
 	}
 	agent any
 	tools {
@@ -24,7 +25,7 @@ pipeline {
         stage ('Build Docker Image') {
         	steps {
         		script {
-        			app = docker.build("drake666/fin")
+        			app = docker.build(image_name)
         		}
         	}
         }
@@ -35,6 +36,16 @@ pipeline {
         				app.push("$BUILD_NUMBER")
         				app.push("latest")
         			}
+        		}
+        	}
+        }
+        stage ('Remove unused docker images') {
+        	steps {
+        		script {
+        			sh '''
+        				docker rmi $image_name:latest
+        				docker rmi $image_name:$BUILD_NUMBER
+        			'''
         		}
         	}
         }
