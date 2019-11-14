@@ -43,8 +43,7 @@ pipeline {
         	steps {
         		script {
         			sh '''
-        				docker rmi $image_name:latest
-        				docker rmi $image_name:$BUILD_NUMBER
+        				docker images
         			'''
         		}
         	}
