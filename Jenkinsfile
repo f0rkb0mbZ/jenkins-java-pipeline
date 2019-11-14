@@ -52,9 +52,18 @@ pipeline {
         }
         stage ('Deploy application to kubernetes') {
             steps {
-                withKubeConfig(clusterName: 'kubernetes', contextName: 'kubernetes-admin@kubernetes', serverUrl: 'https://10.0.0.6:6443', credentialsId: 'kubeSecret') {
+                withKubeConfig(clusterName: 'kubernetes', contextName: 'kubernetes-admin', serverUrl: 'https://10.0.0.6:6443', credentialsId: 'kubeSecret') {
                     script {
-                        sh "kubectl config view"
+                        sh "kubectl run --image=drake666/fin:latest fin-v$BUILD_NUMBER --port=9090 --replicas=3"
+                    }
+                }
+            }
+        }
+        stage ('Expose application') {
+            steps {
+                withKubeConfig(clusterName: 'kubernetes', contextName: 'kubernetes-admin', serverUrl: 'https://10.0.0.6:6443', credentialsId: 'kubeSecret') {
+                    script {
+                        sh "kubectl expose deployment fin-v$BUILD_NUMBER --type=LoadBalancer --port=9090 --target-port=9090"
                     }
                 }
             }
