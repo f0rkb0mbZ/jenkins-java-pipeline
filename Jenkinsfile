@@ -63,7 +63,7 @@ pipeline {
             steps {
                 withKubeConfig(clusterName: 'kubernetes', contextName: 'kubernetes-admin', serverUrl: 'https://10.0.0.6:6443', credentialsId: 'kubeSecret') {
                     script {
-                        sh "kubectl expose deployment fin-v$BUILD_NUMBER --type=LoadBalancer --port=9090 --target-port=9090"
+                        sh "kubectl expose deployment fin-v$BUILD_NUMBER --type=NodePort --port=9090 --target-port=9090"
                     }
                 }
             }
